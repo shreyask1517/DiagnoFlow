@@ -6,7 +6,7 @@ if (form) {
     const email = form.querySelector("input").value;
 
     try {
-      const response = await fetch("http://localhost:3000/waitlist", {
+      const response = await fetch("/waitlist", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
