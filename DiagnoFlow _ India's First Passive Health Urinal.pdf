@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:3000/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiagnoFlow | India's First Passive Health Urinal</title>
+    <script src="./DiagnoFlow _ India&#39;s First Passive Health Urinal_files/lucide@latest"></script>
+    <link href="./DiagnoFlow _ India&#39;s First Passive Health Urinal_files/css2" rel="stylesheet">
+    <style>
+        :root {
+            --dark-navy: #0a0f1a;
+            --teal-accent: #14f195;
+            --teal-muted: rgba(20, 241, 149, 0.15);
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #e2e8f0;
+            --text-dim: #94a3b8;
+            --mono: 'JetBrains Mono', monospace;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background-color: var(--dark-navy);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        .mono { font-family: var(--mono); }
+        /* Background Glows */
+        .glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(20, 241, 149, 0.07) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        /* Navbar */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 15, 26, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo span { color: var(--teal-accent); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-dim); font-size: 0.9rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--teal-accent); }
+        .lang-toggle {
+            padding: 4px 12px;
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        /* Buttons */
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--teal-accent); color: var(--dark-navy); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(20, 241, 149, 0.2); }
+        .btn-secondary { background: var(--glass); color: white; border: 1px solid var(--glass-border); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.08); }
+        /* Sections */
+        section { padding: 100px 5%; max-width: 1200px; margin: 0 auto; opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        section.visible { opacity: 1; transform: translateY(0); }
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding-top: 150px;
+            min-height: 90vh;
+        }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 1.5rem; font-weight: 800; }
+        .hero p { font-size: 1.25rem; color: var(--text-dim); max-width: 600px; margin: 0 auto 2.5rem; }
+        .hero-visual {
+            margin-top: 4rem;
+            position: relative;
+            height: 300px;
+            background: linear-gradient(to bottom, var(--teal-muted), transparent);
+            border-radius: 40px 40px 0 0;
+            border: 1px solid var(--glass-border);
+            border-bottom: none;
+            overflow: hidden;
+        }
+        /* Cards & Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 2.5rem;
+            border-radius: 24px;
+            transition: 0.3s;
+        }
+        .card:hover { border-color: var(--teal-accent); background: rgba(255,255,255,0.05); }
+        /* Timeline */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4rem;
+            position: relative;
+            padding: 2rem 0;
+        }
+        .timeline::before { content: ''; position: absolute; top: 50%; left: 0; width: 100%; height: 2px; background: var(--glass-border); }
+        .t-point { background: var(--dark-navy); position: relative; z-index: 1; padding: 0 1rem; width: 45%; }
+        .t-point.bad { border-left: 4px solid #ef4444; }
+        .t-point.good { border-left: 4px solid var(--teal-accent); }
+        /* Stats Counter */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .stat-item { text-align: center; padding: 2rem; }
+        .stat-val { font-size: 2.5rem; font-weight: 700; color: var(--teal-accent); margin-bottom: 0.5rem; }
+        /* Pricing */
+        .price-card {
+            border: 1px solid var(--glass-border);
+            padding: 3rem 2rem;
+            border-radius: 24px;
+            text-align: center;
+            position: relative;
+        }
+        .price-card.featured { border-color: var(--teal-accent); background: rgba(20, 241, 149, 0.03); transform: scale(1.05); }
+        .price-val { font-size: 3rem; font-weight: 800; margin: 1.5rem 0; }
+        /* WhatsApp Floating */
+        .wa-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25d366;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 9999;
+            cursor: pointer;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .timeline { flex-direction: column; gap: 3rem; }
+            .timeline::before { display: none; }
+            .t-point { width: 100%; }
+            .price-card.featured { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow" style="top: -10%; right: -10%;"></div>
+    <div class="glow" style="bottom: 10%; left: -10%;"></div>
+    <nav>
+        <div class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="droplets" aria-hidden="true" class="lucide lucide-droplets"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"></path><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"></path></svg> Diagno<span>Flow</span>
+        </div>
+        <div class="nav-links">
+            <a href="http://localhost:3000/#how">Technology</a>
+            <a href="http://localhost:3000/#sustainability">Sustainability</a>
+            <a href="http://localhost:3000/#pricing">Pricing</a>
+            <div class="lang-toggle mono">EN | 
+</div>
+            <a href="http://localhost:3000/#waitlist" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.8rem;">Join Waitlist</a>
+        </div>
+    </nav>
+    <section class="hero visible">
+        <span class="mono" style="color: var(--teal-accent); letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem;">India’s first passive health urinal</span>
+        <h1>Know your health.<br>Every morning. Without trying.</h1>
+        <p>Tracks glucose, pH, and hydration daily — no pricks, no wearables, no effort. Built for families, built for diabetes.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+            <a href="http://localhost:3000/#waitlist" class="btn btn-primary">Join Waitlist <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"></path></svg></a>
+            <button class="btn btn-secondary">See How It Works</button>
+        </div>
+        <div style="margin-top: 3rem; color: var(--text-dim); font-size: 0.9rem;" class="mono">
+            Built for India’s 100M+ diabetic families
+        </div>
+        <div class="hero-visual">
+            <div style="padding: 40px;" class="mono">
+                <div style="color: var(--teal-accent); margin-bottom: 10px;">&gt; INITIALIZING_SCAN...</div>
+                <div style="font-size: 2rem;">GLUCOSE: 104 mg/dL <span style="font-size: 0.8rem; opacity: 0.6;">STABLE</span></div>
+                <div style="font-size: 2rem;">pH LEVEL: 6.4 <span style="font-size: 0.8rem; opacity: 0.6;">OPTIMAL</span></div>
+            </div>
+        </div>
+    </section>
+    <section id="problem" class="visible">
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">Testing shouldn't be a chore.</h2>
+        <p style="text-align: center; color: var(--text-dim); max-width: 700px; margin: 0 auto;">Health testing today is reactive. Diabetes and kidney stones progress silently because glucometers require discipline that families struggle to maintain.</p>
+        <div class="timeline">
+            <div class="t-point bad">
+                <h4 class="mono" style="color: #ef4444; margin-bottom: 0.5rem;">Silent Progression</h4>
+                <p style="font-size: 0.9rem; color: var(--text-dim);">Symptoms ignored → Infrequent testing 
+            </p></div>
+            <div class="t-point good">
+                <h4 class="mono" style="color: var(--teal-accent); margin-bottom: 0.5rem;">Passive Detection</h4>
+                <p style="font-size: 0.9rem; color: var(--text-dim);">Daily 30-second scan → AI trend analysis 
+            </p></div>
+        </div>
+    </section>
+    <section id="how" class="visible">
+        <h2 style="text-align: center; font-size: 2.5rem;">Zero Behavior Change.</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="mono" style="color: var(--teal-accent); margin-bottom: 1rem;">01</div>
+                <h3>Install</h3>
+                <p style="color: var(--text-dim);">Clip the DiagnoFlow sensor strip to your existing Western toilet rim. Fits in 10 minutes.</p>
+            </div>
+            <div class="card">
+                <div class="mono" style="color: var(--teal-accent); margin-bottom: 1rem;">02</div>
+                <h3>Use Normally</h3>
+                <p style="color: var(--text-dim);">No buttons to press. The medical-grade sensors activate automatically during use.</p>
+            </div>
+            <div class="card">
+                <div class="mono" style="color: var(--teal-accent); margin-bottom: 1rem;">03</div>
+                <h3>Get Insights</h3>
+                <p style="color: var(--text-dim);">Data flows from Toilet → Phone → AI. Get a wellness score before you finish washing up.</p>
+            </div>
+        </div>
+    </section>
+    <section class="visible">
+        <div style="background: var(--glass); padding: 4rem; border-radius: 40px; border: 1px solid var(--glass-border);">
+            <h2 style="margin-bottom: 2rem;">What we track today.</h2>
+            <div class="grid" style="margin-top: 0;">
+                <div>
+                    <h3 style="color: var(--teal-accent);">Glucose</h3>
+                    <p style="color: var(--text-dim);">Early diabetes signals and sugar spikes monitored without a single needle prick.</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--teal-accent);">pH Levels</h3>
+                    <p style="color: var(--text-dim);">Monitor acidity levels to predict and prevent kidney stone formation.</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--teal-accent);">Hydration</h3>
+                    <p style="color: var(--text-dim);">Real-time cellular hydration tracking for daily energy and skin health.</p>
+                </div>
+            </div>
+            <hr style="margin: 3rem 0; border: none; border-top: 1px solid var(--glass-border);">
+            <div style="display: flex; gap: 2rem; opacity: 0.5;" class="mono">
+                <span>ROADMAP:</span>
+                <span>KETONES</span>
+                <span>HORMONES</span>
+                <span>MICROBIOME</span>
+            </div>
+        </div>
+    </section>
+    <section class="visible">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+            <div>
+                <h2 style="font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem;">Keep an eye on your parents without being intrusive.</h2>
+                <p style="color: var(--text-dim); margin-bottom: 2rem;">Recognizes up to 6 family members by unique biochemical signatures. Guest detection is fully automatic.</p>
+                <div style="background: var(--teal-muted); color: var(--teal-accent); padding: 12px 20px; border-radius: 8px; display: inline-flex; align-items: center; gap: 10px;" class="mono">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield-check" aria-hidden="true" class="lucide lucide-shield-check"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg> ALL PROCESSING ON-DEVICE
+                </div>
+            </div>
+            <div class="card" style="background: linear-gradient(135deg, rgba(20,241,149,0.1), transparent);">
+                <div class="mono" style="margin-bottom: 1rem; font-size: 0.8rem;">NOTIFICATION PREVIEW</div>
+                <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid var(--teal-accent);">
+                    <strong>Dad's Health Alert</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.8;">Glucose spike detected (180 mg/dL). High-carb meal?</span>
+                </div>
+                <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; border-left: 4px solid #3b82f6;">
+                    <strong>Mom's Wellness</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.8;">Hydration is low today. Reminder sent.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="sustainability" class="visible">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <h2 style="font-size: 2.5rem;">One device. Zero strips. Zero waste.</h2>
+            <p style="color: var(--text-dim);">India produces 600+ tonnes of biomedical waste daily. We're changing that.</p>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-item card">
+                <div class="stat-val mono" id="plastic-counter">1,500,000+</div>
+                <div class="mono" style="font-size: 0.8rem;">STRIPS ELIMINATED</div>
+            </div>
+            <div class="stat-item card">
+                <div class="stat-val mono" id="waste-counter">12,500 kg</div>
+                <div class="mono" style="font-size: 0.8rem;">KG WASTE SAVED</div>
+            </div>
+            <div class="stat-item card">
+                <div class="stat-val mono" id="visit-counter">45,000+</div>
+                <div class="mono" style="font-size: 0.8rem;">CLINIC VISITS SAVED</div>
+            </div>
+        </div>
+        <div style="margin-top: 4rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+            <div class="mono" style="padding: 10px 20px; border: 1px solid #4ade80; color: #4ade80; border-radius: 4px;">SWACHH BHARAT ALIGNED</div>
+            <div class="mono" style="padding: 10px 20px; border: 1px solid #4ade80; color: #4ade80; border-radius: 4px;">CERTIFIED SUSTAINABLE</div>
+        </div>
+    </section>
+    <section id="pricing" class="visible">
+        <h2 style="text-align: center; font-size: 3rem; margin-bottom: 3rem;">Invest in your peace of mind.</h2>
+        <div class="grid">
+            <div class="price-card">
+                <div class="mono">BASIC</div>
+                <div class="price-val mono"> 2,999</div>
+                <p style="margin-bottom: 2rem; color: var(--text-dim);">1 User tracking<br>Standard Cartridge<br>Daily Reports</p>
+                <button class="btn btn-secondary" style="width: 100%;">Select</button>
+                <div class="mono" style="margin-top: 1rem; font-size: 0.8rem;"> 249/mo EMI available</div>
+            </div>
+            <div class="price-card featured">
+                <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--teal-accent); color: var(--dark-navy); padding: 4px 15px; border-radius: 20px; font-size: 0.7rem; font-weight: 800;">RECOMMENDED</div>
+                <div class="mono">FAMILY</div>
+                <div class="price-val mono"> 10,999</div>
+                <p style="margin-bottom: 2rem; color: var(--text-dim);">Up to 6 Users<br>Lifetime Accuracy Warranty<br>Priority AI Coach</p>
+                <button class="btn btn-primary" style="width: 100%;">Select Plan</button>
+                <div class="mono" style="margin-top: 1rem; font-size: 0.8rem;"> 916/mo EMI available</div>
+            </div>
+            <div class="price-card">
+                <div class="mono">STANDARD</div>
+                <div class="price-val mono"> 6,999</div>
+                <p style="margin-bottom: 2rem; color: var(--text-dim);">2 User tracking<br>Premium Cartridge<br>Doctor PDF Export</p>
+                <button class="btn btn-secondary" style="width: 100%;">Select</button>
+                <div class="mono" style="margin-top: 1rem; font-size: 0.8rem;"> 583/mo EMI available</div>
+            </div>
+        </div>
+    </section>
+    <section id="waitlist" style="text-align: center;" class="visible">
+        <div style="background: linear-gradient(to bottom, var(--glass), transparent); padding: 5rem 2rem; border-radius: 40px; border: 1px solid var(--glass-border);">
+            <h2 style="font-size: 3rem; margin-bottom: 1rem;">The future is flowing.</h2>
+            <p style="margin-bottom: 3rem; color: var(--text-dim);"> 500 off for the first 1,000 signups. Launching Q3 2026.</p>
+            <form style="max-width: 500px; margin: 0 auto; display: flex; gap: 10px;">
+                <input type="email" placeholder="Enter your email" style="flex: 1; padding: 15px; border-radius: 8px; border: 1px solid var(--glass-border); background: var(--dark-navy); color: white;">
+                <button class="btn btn-primary">Get Early Access</button>
+            </form>
+            <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 3rem; color: var(--text-dim); font-size: 0.8rem;" class="mono">
+                <span>MUMBAI</span>
+                <span>DELHI</span>
+                <span>BENGALURU</span>
+                <span>HYDERABAD</span>
+                <span>PUNE</span>
+            </div>
+        </div>
+    </section>
+    <footer style="padding: 5rem 5% 2rem; border-top: 1px solid var(--glass-border);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 4rem; margin-bottom: 4rem;">
+            <div>
+                <div class="logo" style="margin-bottom: 1.5rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="droplets" aria-hidden="true" class="lucide lucide-droplets"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"></path><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"></path></svg> Diagno<span>Flow</span>
+                </div>
+                <p style="color: var(--text-dim); font-size: 0.9rem;">Revolutionizing preventative healthcare for the modern Indian family.</p>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1rem;">Product</h4>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem; color: var(--text-dim); font-size: 0.9rem;">
+                    <span>Technology</span>
+                    <span>Safety</span>
+                    <span>Installation</span>
+                </div>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1rem;">Company</h4>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem; color: var(--text-dim); font-size: 0.9rem;">
+                    <span>About Us</span>
+                    <span>Careers</span>
+                    <span>Privacy Policy</span>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; border-top: 1px solid var(--glass-border); padding-top: 2rem; font-size: 0.8rem; color: var(--text-dim);" class="mono">
+            © 2026 DIAGNOFLOW HEALTH TECHNOLOGIES PVT LTD. CDSCO REGISTERED.
+        </div>
+    </footer>
+    <div class="wa-float">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="message-circle" aria-hidden="true" style="color: white;" class="lucide lucide-message-circle"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"></path></svg>
+    </div>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        // Reveal animations on scroll
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if (entry.target.id === 'sustainability') startCounters();
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
+        // Animated Counters
+        function startCounters() {
+            const animate = (id, target, suffix = "") => {
+                let current = 0;
+                const element = document.getElementById(id);
+                const step = target / 50;
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        element.innerText = target.toLocaleString() + suffix;
+                        clearInterval(timer);
+                    } else {
+                        element.innerText = Math.floor(current).toLocaleString() + suffix;
+                    }
+                }, 30);
+            };
+            animate('plastic-counter', 1500000, "+");
+            animate('waste-counter', 12500, " kg");
+            animate('visit-counter', 45000, "+");
+        }
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    <script src="./DiagnoFlow _ India&#39;s First Passive Health Urinal_files/frontend.js"></script>
+
+</body></html>
